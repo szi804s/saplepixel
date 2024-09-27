@@ -1212,6 +1212,97 @@
         <div id="svg-templates" style="position: absolute; overflow: hidden; top: 0; left: 0; width: 0; height: 0"></div>
         <div id="__framer-badge-container"></div>
         <script data-framer-appear-animation="no-preference"></script>
-        <!-- End of bodyEnd -->
-    </body>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona z Czatem</title>
+    <style>
+        /* Stylizacja dla ikony czatu */
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .chat-form {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-form input, .chat-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .chat-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-icon" id="chatIcon">💬</div>
+
+<div class="chat-form" id="chatForm">
+    <h3>Wyślij wiadomość</h3>
+    <form id="contactForm">
+        <input type="text" name="name" id="name" placeholder="Twoje imię" required>
+        <input type="email" name="email" id="email" placeholder="Twój e-mail" required>
+        <textarea name="message" id="message" placeholder="Wiadomość" required></textarea>
+        <button type="submit">Wyślij</button>
+    </form>
+</div>
+
+<script>
+    // Obsługa wyświetlania formularza po kliknięciu ikony czatu
+    const chatIcon = document.getElementById('chatIcon');
+    const chatForm = document.getElementById('chatForm');
+
+    chatIcon.addEventListener('click', function() {
+        chatForm.style.display = chatForm.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Konfiguracja EmailJS (wymaga zarejestrowania się na emailjs.com)
+    (function() {
+        emailjs.init("TWÓJ_PUBLICZNY_KLUCZ_API"); // Użyj swojego publicznego klucza API z EmailJS
+    })();
+
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            .then(function() {
+                alert('Wiadomość wysłana!');
+            }, function(error) {
+                alert('Błąd w wysyłaniu wiadomości: ' + JSON.stringify(error));
+            });
+    });
+</script>
+
+<!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+</body>
 </html>
