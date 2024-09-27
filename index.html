@@ -1141,7 +1141,7 @@
     document.getElementById('contactForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        emailjs.sendForm('service_o7xv64p', 'template_hxzbzik', this)
+        emailjs.sendForm('service_o7xv64p', 'hxzbzik', this)
             .then(function() {
                 alert('Wiadomość wysłana!');
                 chatForm.style.display = 'none'; // Ukryj formularz po wysłaniu
