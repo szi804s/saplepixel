@@ -1194,112 +1194,87 @@
             <!--/$-->
         </div>
         <script>
-            (()=>{
-                function t() {
-                    for (let e of document.querySelectorAll("[data-framer-original-sizes]")) {
-                        let i = e.getAttribute("data-framer-original-sizes");
-                        i === "" ? e.removeAttribute("sizes") : e.setAttribute("sizes", i),
-                        e.removeAttribute("data-framer-original-sizes")
-                    }
-                }
-                function s() {
-                    window.__framer_onRewriteBreakpoints = t
-                }
-                return s
-            }
-            )()()
-        </script>
-        <!DOCTYPE html>
+            <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formularz Czat</title>
+    <title>Chat with Us</title>
     <style>
-        .chat-icon {
+        /* Stylowanie formularza czatu */
+        #chatForm {
+            display: none;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 10px;
+            right: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #chatIcon {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
             background-color: #007bff;
             color: white;
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-        }
-
-        .chat-form {
-            display: none;
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        .chat-form input, .chat-form textarea {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-
-        .chat-form button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            border: none;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="chat-icon" id="chatIcon">💬</div>
+<!-- Ikona czatu -->
+<div id="chatIcon">💬</div>
 
-    <div class="chat-form" id="chatForm">
-        <h3>Wyślij wiadomość</h3>
-        <form id="contactForm">
-            <input type="text" name="name" placeholder="Twoje imię" required>
-            <input type="email" name="email" placeholder="Twój e-mail" required>
-            <textarea name="message" placeholder="Wiadomość" required></textarea>
-            <button type="submit">Wyślij</button>
-        </form>
-    </div>
+<!-- Formular czatu -->
+<div id="chatForm">
+    <form id="contactForm">
+        <label for="user_name">Imię:</label>
+        <input type="text" id="user_name" name="user_name" required><br><br>
+        <label for="user_email">Email:</label>
+        <input type="email" id="user_email" name="user_email" required><br><br>
+        <label for="message">Wiadomość:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+        <input type="submit" value="Wyślij">
+    </form>
+</div>
 
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        const chatIcon = document.getElementById('chatIcon');
-        const chatForm = document.getElementById('chatForm');
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    // Obsługa wyświetlania formularza po kliknięciu ikony czatu
+    const chatIcon = document.getElementById('chatIcon');
+    const chatForm = document.getElementById('chatForm');
 
-        chatIcon.addEventListener('click', function() {
-            chatForm.style.display = chatForm.style.display === 'block' ? 'none' : 'block';
-        });
+    chatIcon.addEventListener('click', function() {
+        chatForm.style.display = chatForm.style.display === 'block' ? 'none' : 'block';
+    });
 
-        (function() {
-            emailjs.init("zcf3U_MnVLn5UZk0k"); // Poprawny klucz publiczny
-        })();
+    // Konfiguracja EmailJS
+    (function() {
+        emailjs.init("zcf3U_MnVLn5UZk0k"); // Twój publiczny klucz API z EmailJS
+    })();
 
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-            emailjs.sendForm('service_o7xv64p', 'template_hxzbzik', this)
-                .then(function() {
-                    alert('Wiadomość wysłana!');
-                    chatForm.style.display = 'none'; // Ukryj formularz po wysłaniu
-                    document.getElementById('contactForm').reset(); // Zresetuj formularz
-                }, function(error) {
-                    console.error('Błąd: ', error);
-                    alert('Błąd w wysyłaniu wiadomości: ' + JSON.stringify(error));
-                });
-        });
-    </script>
+        emailjs.sendForm('service_o7xv64p', 'template_hxzbzik', this)
+            .then(function() {
+                alert('Wiadomość wysłana!');
+                chatForm.style.display = 'none'; // Ukryj formularz po wysłaniu
+                document.getElementById('contactForm').reset(); // Zresetuj formularz
+            }, function(error) {
+                console.error('Błąd: ', error);
+                alert('Błąd w wysyłaniu wiadomości: ' + JSON.stringify(error));
+            });
+    });
+</script>
 
 </body>
 </html>
-
