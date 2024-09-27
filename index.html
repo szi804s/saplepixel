@@ -1209,17 +1209,13 @@
             }
             )()()
         </script>
-        <div id="svg-templates" style="position: absolute; overflow: hidden; top: 0; left: 0; width: 0; height: 0"></div>
-        <div id="__framer-badge-container"></div>
-        <script data-framer-appear-animation="no-preference"></script>
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona z Czatem</title>
+    <title>Formularz Czat</title>
     <style>
-        /* Stylizacja dla ikony czatu */
         .chat-icon {
             position: fixed;
             bottom: 20px;
@@ -1244,6 +1240,7 @@
             border: 1px solid #ccc;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
 
         .chat-form input, .chat-form textarea {
@@ -1263,46 +1260,46 @@
 </head>
 <body>
 
-<div class="chat-icon" id="chatIcon">💬</div>
+    <div class="chat-icon" id="chatIcon">💬</div>
 
-<div class="chat-form" id="chatForm">
-    <h3>Wyślij wiadomość</h3>
-    <form id="contactForm">
-        <input type="text" name="name" id="name" placeholder="Twoje imię" required>
-        <input type="email" name="email" id="email" placeholder="Twój e-mail" required>
-        <textarea name="message" id="message" placeholder="Wiadomość" required></textarea>
-        <button type="submit">Wyślij</button>
-    </form>
-</div>
+    <div class="chat-form" id="chatForm">
+        <h3>Wyślij wiadomość</h3>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Twoje imię" required>
+            <input type="email" name="email" placeholder="Twój e-mail" required>
+            <textarea name="message" placeholder="Wiadomość" required></textarea>
+            <button type="submit">Wyślij</button>
+        </form>
+    </div>
 
-<script>
-    // Obsługa wyświetlania formularza po kliknięciu ikony czatu
-    const chatIcon = document.getElementById('chatIcon');
-    const chatForm = document.getElementById('chatForm');
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        const chatIcon = document.getElementById('chatIcon');
+        const chatForm = document.getElementById('chatForm');
 
-    chatIcon.addEventListener('click', function() {
-        chatForm.style.display = chatForm.style.display === 'block' ? 'none' : 'block';
-    });
+        chatIcon.addEventListener('click', function() {
+            chatForm.style.display = chatForm.style.display === 'block' ? 'none' : 'block';
+        });
 
-    // Konfiguracja EmailJS (wymaga zarejestrowania się na emailjs.com)
-    (function() {
-        emailjs.init("zcf3U_MnVLn5UZk0k"); // Użyj swojego publicznego klucza API z EmailJS
-    })();
+        (function() {
+            emailjs.init("zcf3U_MnVLn5UZk0k"); // Poprawny klucz publiczny
+        })();
 
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        emailjs.sendForm('service_o7xv64p', 'template_hzxbzik', this)
-            .then(function() {
-                alert('Wiadomość wysłana!');
-            }, function(error) {
-                alert('Błąd w wysyłaniu wiadomości: ' + JSON.stringify(error));
-            });
-    });
-</script>
-
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+            emailjs.sendForm('service_o7xv64p', 'template_hxzbzik', this)
+                .then(function() {
+                    alert('Wiadomość wysłana!');
+                    chatForm.style.display = 'none'; // Ukryj formularz po wysłaniu
+                    document.getElementById('contactForm').reset(); // Zresetuj formularz
+                }, function(error) {
+                    console.error('Błąd: ', error);
+                    alert('Błąd w wysyłaniu wiadomości: ' + JSON.stringify(error));
+                });
+        });
+    </script>
 
 </body>
 </html>
+
